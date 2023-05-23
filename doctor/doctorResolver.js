@@ -1,10 +1,10 @@
 const db = require('./models');
 
-const patientResolver = {
-  getPatientById: ({ id }) => {
+const doctorResolver = {
+  getDoctorById: ({ id }) => {
     return new Promise((resolve, reject) => {
       db.get(
-        `SELECT * FROM patients WHERE id = ?`,
+        `SELECT * FROM doctors WHERE id = ?`,
         [id], 
         (err, row) => {
           if (err) {
@@ -17,10 +17,10 @@ const patientResolver = {
     });
   },
 
-  getAllPatients: () => {
+  getAllDoctors: () => {
     return new Promise((resolve, reject) => {
       db.all(
-        `SELECT * FROM patients`, 
+        `SELECT * FROM doctors`, 
         [], 
         (err, rows) => {
           if (err) {
@@ -33,10 +33,10 @@ const patientResolver = {
     });
   },
 
-  addPatient: ({ name, email, phone }) => {
+  addDoctor: ({ name, email, phone }) => {
     return new Promise((resolve, reject) => {
       db.run(
-        `INSERT INTO patients (name, email, phone) VALUES (?, ?, ?)`,
+        `INSERT INTO doctors (name, email, phone) VALUES (?, ?, ?)`,
         [name, email, phone],
         function(err) {
           if (err) {
@@ -49,10 +49,10 @@ const patientResolver = {
     });
   },
 
-  updatePatient: ({ id, name, email, phone }) => {
+  updateDoctor: ({ id, name, email, phone }) => {
     return new Promise((resolve, reject) => {
       db.run(
-        'UPDATE patients SET name = ?, email = ?, phone = ? WHERE id = ?',
+        'UPDATE doctors SET name = ?, email = ?, phone = ? WHERE id = ?',
         [name, email, phone, id],
         function (err) {
           if (err) {
@@ -65,16 +65,16 @@ const patientResolver = {
     });
   },
 
-  deletePatient: ({ id }) => {
+  deleteDoctor: ({ id }) => {
     return new Promise((resolve, reject) => {
       db.run(
-        `DELETE FROM patients WHERE id = ?`,
+        `DELETE FROM doctors WHERE id = ?`,
         [id],
         function(err) {
           if (err) {
             reject(err);
           } else {
-            resolve(`patient with id ${id} deleted.`);
+            resolve(`doctor with id ${id} deleted.`);
           }
         }
       );
@@ -82,4 +82,4 @@ const patientResolver = {
   }
 };
 
-module.exports = patientResolver;
+module.exports = doctorResolver;
