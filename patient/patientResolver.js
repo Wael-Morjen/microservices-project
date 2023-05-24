@@ -33,32 +33,32 @@ const patientResolver = {
     });
   },
 
-  addPatient: ({ name, email, phone }) => {
+  addPatient: ({ name, lastName, phone }) => {
     return new Promise((resolve, reject) => {
       db.run(
-        `INSERT INTO patients (name, email, phone) VALUES (?, ?, ?)`,
-        [name, email, phone],
+        `INSERT INTO patients (name, lastName, phone) VALUES (?, ?, ?)`,
+        [name, lastName, phone],
         function(err) {
           if (err) {
             reject(err);
           } else {
-            resolve({ id: this.lastID, name, email, phone });
+            resolve({ id: this.lastID, name, lastName, phone });
           }
         }
       );
     });
   },
 
-  updatePatient: ({ id, name, email, phone }) => {
+  updatePatient: ({ id, name, lastName, phone }) => {
     return new Promise((resolve, reject) => {
       db.run(
-        'UPDATE patients SET name = ?, email = ?, phone = ? WHERE id = ?',
-        [name, email, phone, id],
+        'UPDATE patients SET name = ?, lastName = ?, phone = ? WHERE id = ?',
+        [name, lastName, phone, id],
         function (err) {
           if (err) {
             reject(err);
           } else {
-            resolve({ id, name, email, phone });
+            resolve({ id, name, lastName, phone });
           }
         }
       );
